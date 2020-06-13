@@ -1,0 +1,12 @@
+FROM golang:1.13.1-alpine
+
+RUN apk add --no-cache git bash make curl gcc libc-dev openssl && \
+    go get -u golang.org/x/lint/golint && \
+    go get -u github.com/kyoh86/richgo && \
+    go get -u golang.org/x/tools/cmd/goimports && \
+    go get -u github.com/derekparker/delve/cmd/dlv
+
+WORKDIR /go/src/clean-serverless-book-sample
+COPY . /go/src/clean-serverless-book-sample
+
+RUN ./scripts/build-handlers.sh

@@ -1,0 +1,11 @@
+{
+  "name": "corporate-blog-recommend",
+  "description": "",
+  "license": "MIT",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^2.3.1",
+    "serverless-pseudo-parameters": "^2.5.0"
+  }
+}

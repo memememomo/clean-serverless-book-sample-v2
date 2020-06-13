@@ -1,0 +1,5 @@
+.idea
+.env.aws-credentials
+main
+.serverless
+node_modules

@@ -1,0 +1,126 @@
+service: clean-serverless-book-sample
+
+frameworkVersion: '>=1.28.0 <2.0.0'
+
+custom:
+  project_name: clean-serverless-book-sample
+  dynamo_table_name: ${env:DYNAMO_TABLE_NAME}
+
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-dotenv-plugin
+
+
+provider:
+  name: aws
+  runtime: go1.x
+  region: ap-northeast-1
+  stackName: clean-serverless-book-sample
+  timeout: 900
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - "logs:*"
+      Resource: "*"
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./adapter/handlers/**
+
+functions:
+  getUsers:
+    events:
+    - http:
+        method: get
+        path: /v1/users
+    handler: adapter/handlers/api/get_users/main
+    name: ${self:custom.project_name}-GetUsers
+  postUsers:
+    events:
+    - http:
+        method: post
+        path: /v1/users
+    handler: adapter/handlers/api/post_users/main
+    name: ${self:custom.project_name}-PostUsers
+  getUser:
+    events:
+    - http:
+        method: get
+        path: /v1/users/{user_id}
+    handler: adapter/handlers/api/get_user/main
+    name: ${self:custom.project_name}-GetUser
+  putUser:
+    events:
+    - http:
+        method: put
+        path: /v1/users/{user_id}
+    handler: adapter/handlers/api/put_user/main
+    name: ${self:custom.project_name}-PutUser
+  deleteUser:
+    events:
+    - http:
+        method: delete
+        path: /v1/users/{user_id}
+    handler: adapter/handlers/api/delete_user/main
+    name: ${self:custom.project_name}-DeleteUser
+  postMicroposts:
+    events:
+    - http:
+        method: post
+        path: /v1/users/{user_id}/microposts
+    handler: adapter/handlers/api/post_microposts/main
+    name: ${self:custom.project_name}-PostMicroposts
+  getMicroposts:
+    events:
+    - http:
+        method: get
+        path: /v1/users/{user_id}/microposts
+    handler: adapter/handlers/api/get_microposts/main
+    name: ${self:custom.project_name}-GetMicroposts
+  getMicropost:
+    events:
+    - http:
+        method: get
+        path: /v1/users/{user_id}/microposts/{micropost_id}
+    handler: adapter/handlers/api/get_micropost/main
+    name: ${self:custom.project_name}-GetMicropost
+  putMicropost:
+    events:
+    - http:
+        method: put
+        path: /v1/users/{user_id}/microposts/{micropost_id}
+    handler: adapter/handlers/api/put_micropost/main
+    name: ${self:custom.project_name}-PutMicropost
+  deleteMicropost:
+    events:
+    - http:
+        method: delete
+        path: /v1/users/{user_id}/microposts/{micropost_id}
+    handler: adapter/handlers/api/delete_micropost/main
+    name: ${self:custom.project_name}-DeleteMicropost
+
+resources:
+  Resources:
+    ResourceTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.dynamo_table_name}
