@@ -104,6 +104,14 @@ functions:
         path: /v1/users/{user_id}/microposts/{micropost_id}
     handler: adapter/handlers/api/delete_micropost/main
     name: ${self:custom.project_name}-DeleteMicropost
+  scheduleHandler:
+    events:
+      - schedule:
+          rate: rate(5 minutes)
+          input:
+            action: test
+    handler: adapter/handlers/schedule/main
+    name: ${self:custom.project_name}-ScheduleHandler
 
 resources:
   Resources:
