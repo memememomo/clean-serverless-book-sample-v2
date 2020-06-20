@@ -5,6 +5,7 @@ frameworkVersion: '>=1.28.0 <2.0.0'
 custom:
   project_name: clean-serverless-book-sample
   dynamo_table_name: ${env:DYNAMO_TABLE_NAME}
+  bucket_name: clean-serverless-test
 
 plugins:
   - serverless-pseudo-parameters
@@ -104,6 +105,10 @@ functions:
         path: /v1/users/{user_id}/microposts/{micropost_id}
     handler: adapter/handlers/api/delete_micropost/main
     name: ${self:custom.project_name}-DeleteMicropost
+  s3Handler:
+    events:
+      - s3: ${self:custom.bucket_name}
+    handler: adapter/handlers/s3event/main
 
 resources:
   Resources:
