@@ -104,6 +104,13 @@ functions:
         path: /v1/users/{user_id}/microposts/{micropost_id}
     handler: adapter/handlers/api/delete_micropost/main
     name: ${self:custom.project_name}-DeleteMicropost
+  postHello:
+    events:
+      - http:
+          method: post
+          path: /v1/hello
+    handler: adapter/handlers/api/post_hello/main
+    name: ${self:custom.project_name}-PostHello
 
 resources:
   Resources:

@@ -24,6 +24,7 @@ var displayNames = map[string]string{
 	"micropost_id": "マイクロポストID",
 	"email":        "メールアドレス",
 	"content":      "本文",
+	"name":         "名前",
 }
 
 // ConvertErrorsToMessage エラーメッセージに変換

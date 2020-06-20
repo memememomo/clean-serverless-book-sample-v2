@@ -200,3 +200,9 @@ func (f *Factory) BuildDeleteMicropost() usecase.IDeleteMicropost {
 			f.BuildMicropostOperator())
 	}).(usecase.IDeleteMicropost)
 }
+
+func (f *Factory) BuildCreateHelloMessage() usecase.ICreateHelloMessage {
+	return f.container("CreateHelloMessage", func() interface{} {
+		return interactor.NewCreateHelloMessage()
+	}).(usecase.ICreateHelloMessage)
+}
