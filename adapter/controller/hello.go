@@ -18,14 +18,19 @@ type HelloMessageResponse struct {
 }
 
 // バリデーションの設定
-var ValidateHelloMessageSettings = []*ValidatorSetting{
-	{ArgName: "name", ValidateTags: "required"},
+func HelloMessageSettingsValidator() *Validator {
+	return &Validator{
+		Settings: []*ValidatorSetting{
+			{ArgName: "name", ValidateTags: "required"},
+		},
+	}
 }
 
 // PostHello コントローラの実装
 func PostHello(request events.APIGatewayProxyRequest) events.APIGatewayProxyResponse {
 	// バリデーション
-	validErr := ValidateBody(request.Body, ValidateHelloMessageSettings)
+	validator := HelloMessageSettingsValidator()
+	validErr := validator.ValidateBody(request.Body)
 	if validErr != nil {
 		return Response400(validErr)
 	}
