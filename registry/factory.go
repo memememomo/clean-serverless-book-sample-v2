@@ -119,6 +119,15 @@ func (f *Factory) BuildMicropostOperator() *adapter.MicropostOperator {
 	}).(*adapter.MicropostOperator)
 }
 
+func (f *Factory) BuildProductOperator() *adapter.ProductOperator {
+	return f.container("ProductOperator", func() interface{} {
+		return &adapter.ProductOperator{
+			Client: f.BuildResourceTableOperator(),
+			Mapper: f.BuildDynamoModelMapper(),
+		}
+	}).(*adapter.ProductOperator)
+}
+
 // BuildCreateUser ユーザー作成UseCaseインスタンスを生成
 func (f *Factory) BuildCreateUser() usecase.ICreateUser {
 	return f.container("CreateUser", func() interface{} {
