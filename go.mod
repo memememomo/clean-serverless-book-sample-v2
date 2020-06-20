@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/aws/aws-lambda-go v1.17.0
-	github.com/aws/aws-sdk-go v1.32.1
+	github.com/aws/aws-sdk-go v1.32.6
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/gofrs/uuid v3.3.0+incompatible // indirect
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
@@ -16,7 +16,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
-	golang.org/x/sys v0.0.0-20200610111108-226ff32320da // indirect
+	golang.org/x/sys v0.0.0-20200615200032-f1bc736245b1 // indirect
 	gopkg.in/validator.v2 v2.0.0-20200605151824-2b28d334fa05
-	gopkg.in/yaml.v3 v3.0.0-20200605160147-a5ece683394c // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )

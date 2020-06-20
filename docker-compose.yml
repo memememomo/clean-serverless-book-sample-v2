@@ -5,7 +5,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile_go
     volumes:
-      - .:/go/src/clean-serverless-book-sample-v2/:cached
+      - .:/go/src/clean-serverless-book-sample/:cached
     security_opt:
       - seccomp:unconfined
     depends_on:
